@@ -1,0 +1,60 @@
+name: Deploy AutoMeet
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Modify application.yml and docker-compose.yml
+        run: |
+          sed -i 's~url: ${MYSQL_URL}~url: '"${{ secrets.MYSQL_URL }}"'~' src/main/resources/application.yml
+          sed -i 's~username: ${MYSQL_USER}~username: '"${{ secrets.MYSQL_USER }}"'~' src/main/resources/application.yml
+          sed -i 's~password: ${MYSQL_PASSWORD}~password: '"${{ secrets.MYSQL_PASSWORD }}"'~' src/main/resources/application.yml
+          sed -i 's~jwt_secret : ${JWT_SECRET}~jwt_secret : '"${{ secrets.JWT_SECRET }}"'~' src/main/resources/application.yml
+          sed -i 's~username: ${MONGODB_URI}~mongo_uri: '"${{ secrets.MONGODB_URI }}"'~' src/main/resources/application.yml
+          sed -i 's~password: ${OPENVIDU_URL}~openvidu_url: '"${{ secrets.OPENVIDU_URL }}"'~' src/main/resources/application.yml
+          sed -i 's~gpt_url: ${OPENVIDU_SECRET}~openvidu_secret: '"${{ secrets.OPENVIDU_SECRET }}"'~' src/main/resources/application.yml
+          sed -i 's~MYSQL_URL:.*~MYSQL_URL: '"${{ secrets.MYSQL_URL }}"'~' docker-compose.yml
+          sed -i 's~MYSQL_USER:.*~MYSQL_USER: '"${{ secrets.MYSQL_USER }}"'~' docker-compose.yml
+          sed -i 's~MYSQL_PASSWORD:.*~MYSQL_PASSWORD: '"${{ secrets.MYSQL_PASSWORD }}"'~' docker-compose.yml
+          sed -i 's~MONGO_USERNAME:.*~MONGO_USERNAME: '"${{ secrets.MONGO_USERNAME }}"'~' docker-compose.yml
+          sed -i 's~MYSQL_PASSWORD:.*~MYSQL_PASSWORD: '"${{ secrets.MYSQL_PASSWORD }}"'~' docker-compose.yml
+          sed -i 's~OPENVIDU_URL:.*~OPENVIDU_URL: '"${{ secrets.OPENVIDU_URL }}"'~' docker-compose.yml
+          sed -i 's~OPENVIDU_SECRET:.*~OPENVIDU_SECRET: '"${{ secrets.OPENVIDU_SECRET }}"'~' docker-compose.yml
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew clean bootJar
+
+      - run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - run: docker build -t chanhee01/Auto-meet ./
+
+      - run: docker push chanhee01/Auto-meet
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip Dockerfile docker-compose.yml build/libs/*.jar
+
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          application_name: AutoMeet
+          environment_name: AutoMeet-env-1
+          existing_bucket_name: automeet-s3
+          region: ap-northeast-2
+          version_label: ${{ github.sha }}
+          deployment_package: deploy.zip

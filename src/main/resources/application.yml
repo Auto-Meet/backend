@@ -1,0 +1,28 @@
+# mysql
+spring :
+  datasource :
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      show-sql: true
+      hibernate.format_sql: true
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto: update
+      jdbc:
+        time-zone: Asia/Seoul
+
+  # mongodb
+  data :
+    mongodb :
+      uri : ${MONGODB_URI}
+
+jwt.secret : ${JWT_SECRET}
+
+# openvidu
+OPENVIDU :
+  URL : ${OPENVIDU_URL}
+  SECRET : ${OPENVIDU_SECRET}

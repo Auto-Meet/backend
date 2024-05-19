@@ -1,0 +1,55 @@
+version: "3"
+services:
+  mysql:
+    image: mysql
+    container_name: AutoMeet_mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      TZ: Asia/Seoul
+    restart: always
+
+  mongodb:
+    image: mongo
+    container_name: AutoMeet_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+    environment:
+      MONGO_USERNAME: $MONGO_USERNAME
+      MONGO_PASSWORD: $MONGO_PASSWORD
+    restart: always
+
+  openvidu:
+    image: openvidu/openvidu-server-kms:latest
+    container_name: AutoMeet_openvidu
+    ports:
+      - "4443:4443"
+    environment:
+      DOMAIN_OR_PUBLIC_IP: $OPENVIDU_URL
+      OPENVIDU_SECRET: $OPENVIDU_SECRET
+    restart: always
+
+  backend:
+    image: chanhee01/auto-meet
+    container_name: AutoMeet_backend
+    ports:
+      - "8080:8080"
+    environment:
+      JWT_SECRET : AutoMeet
+      MYSQL_URL: $MYSQL_URL
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MONGODB_URL: $MONGODB_URI
+      OPENVIDU_URL: https://$OPENVIDU_URL:4443
+    depends_on:
+      - mysql
+      - mongodb
+      - openvidu
+    restart: always
