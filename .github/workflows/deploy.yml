@@ -21,14 +21,14 @@ jobs:
           sed -i 's~username: ${MYSQL_USER}~username: '"${{ secrets.MYSQL_USER }}"'~' src/main/resources/application.yml
           sed -i 's~password: ${MYSQL_PASSWORD}~password: '"${{ secrets.MYSQL_PASSWORD }}"'~' src/main/resources/application.yml
           sed -i 's~jwt_secret : ${JWT_SECRET}~jwt_secret : '"${{ secrets.JWT_SECRET }}"'~' src/main/resources/application.yml
-          sed -i 's~username: ${MONGODB_URI}~mongo_uri: '"${{ secrets.MONGODB_URI }}"'~' src/main/resources/application.yml
-          sed -i 's~password: ${OPENVIDU_URL}~openvidu_url: '"${{ secrets.OPENVIDU_URL }}"'~' src/main/resources/application.yml
-          sed -i 's~gpt_url: ${OPENVIDU_SECRET}~openvidu_secret: '"${{ secrets.OPENVIDU_SECRET }}"'~' src/main/resources/application.yml
+          sed -i 's~mongo_uri: ${MONGODB_URI}~mongo_uri: '"${{ secrets.MONGODB_URI }}"'~' src/main/resources/application.yml
+          sed -i 's~openvidu_url: ${OPENVIDU_URL}~openvidu_url: '"${{ secrets.OPENVIDU_URL }}"'~' src/main/resources/application.yml
+          sed -i 's~openvidu_secret: ${OPENVIDU_SECRET}~openvidu_secret: '"${{ secrets.OPENVIDU_SECRET }}"'~' src/main/resources/application.yml
           sed -i 's~MYSQL_URL:.*~MYSQL_URL: '"${{ secrets.MYSQL_URL }}"'~' docker-compose.yml
           sed -i 's~MYSQL_USER:.*~MYSQL_USER: '"${{ secrets.MYSQL_USER }}"'~' docker-compose.yml
           sed -i 's~MYSQL_PASSWORD:.*~MYSQL_PASSWORD: '"${{ secrets.MYSQL_PASSWORD }}"'~' docker-compose.yml
           sed -i 's~MONGO_USERNAME:.*~MONGO_USERNAME: '"${{ secrets.MONGO_USERNAME }}"'~' docker-compose.yml
-          sed -i 's~MYSQL_PASSWORD:.*~MYSQL_PASSWORD: '"${{ secrets.MYSQL_PASSWORD }}"'~' docker-compose.yml
+          sed -i 's~MONGO_PASSWORD:.*~MONGO_PASSWORD: '"${{ secrets.MONGO_PASSWORD }}"'~' docker-compose.yml
           sed -i 's~OPENVIDU_URL:.*~OPENVIDU_URL: '"${{ secrets.OPENVIDU_URL }}"'~' docker-compose.yml
           sed -i 's~OPENVIDU_SECRET:.*~OPENVIDU_SECRET: '"${{ secrets.OPENVIDU_SECRET }}"'~' docker-compose.yml
 
