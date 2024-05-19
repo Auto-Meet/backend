@@ -29,7 +29,6 @@ jobs:
           sed -i 's~MYSQL_USER:.*~MYSQL_USER: '"${{ secrets.MYSQL_USER }}"'~' docker-compose.yml
           sed -i 's~MYSQL_PASSWORD:.*~MYSQL_PASSWORD: '"${{ secrets.MYSQL_PASSWORD }}"'~' docker-compose.yml
           sed -i 's~MYSQL_USERNAME:.*~MYSQL_USERNAME: '"${{ secrets.MYSQL_USERNAME }}"'~' docker-compose.yml
-          sed -i 's~MONGO_USERNAME:.*~MONGO_USERNAME: '"${{ secrets.MONGO_USERNAME }}"'~' docker-compose.yml
           sed -i 's~MONGO_PASSWORD:.*~MONGO_PASSWORD: '"${{ secrets.MONGO_PASSWORD }}"'~' docker-compose.yml
           sed -i 's~OPENVIDU_URL:.*~OPENVIDU_URL: '"${{ secrets.OPENVIDU_URL }}"'~' docker-compose.yml
           sed -i 's~OPENVIDU_SECRET:.*~OPENVIDU_SECRET: '"${{ secrets.OPENVIDU_SECRET }}"'~' docker-compose.yml
