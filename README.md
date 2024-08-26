@@ -3,7 +3,7 @@
 <br>
 
 ### **프로젝트 논문**
-[Transformer와 Sentiment Analysis 기반 회의 분위기 분석 및 자동 회의록 요약 서비스.pdf](https://github.com/user-attachments/files/16283198/Transformer.Sentiment.Analysis.pdf)
+[Transformer와 Sentiment Analysis 기반 회의 분위기 분석 및 자동 회의록 요약 서비스 논문.pdf](https://github.com/user-attachments/files/16746552/Transformer.Sentiment.Analysis.pdf)
 
 <br>
 
@@ -80,7 +80,7 @@ Transformer와 Sentiment Analysis AI 모델을 사용하여 회의 핵심 내용
 
 <br>
 
-## **CI/CD Architecture**
+## **System Architecture**
 <div align="center">
-    <img width="650" alt="CI/CD" src="https://github.com/user-attachments/assets/c095f118-8993-48e6-8358-0c16be3de987">
+    <img width="650" alt="CI/CD" src="https://github.com/user-attachments/assets/d16048d7-b6e9-4bf4-97c8-8f73d852b098">
 </div>
