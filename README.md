@@ -19,12 +19,6 @@ Transformer와 Sentiment Analysis AI 모델을 사용하여 회의 핵심 내용
 
 <br>
 
-## **서비스 시연 영상**
-
-
-[서비스 시연 영상 유튜브 링크](https://www.youtube.com/embed/naqC0PjFeI8)
-
-
 
 <br>
 
