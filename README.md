@@ -3,7 +3,7 @@
 <br>
 
 ### **프로젝트 논문**
-[Transformer와 Sentiment Analysis 기반 회의 분위기 분석 및 자동 회의록 요약 서비스 논문.pdf](https://github.com/user-attachments/files/16746552/Transformer.Sentiment.Analysis.pdf)
+[Transformer와 Sentiment Analysis 기반 회의 분위기 분석 및 자동 회의록 요약 서비스.pdf](https://github.com/user-attachments/files/16818508/Transformer.Sentiment.Analysis.pdf)
 
 <br>
 
